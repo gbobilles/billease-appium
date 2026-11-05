@@ -17,15 +17,6 @@ describe('Forgot Password', () => {
         await ForgotPasswordPage.waitForScreen();
     });
 
-    // it('@smoke should send an OTP to a registered mobile number', async function () {
-    //     if (!hasRegisteredUser()) this.skip();
-
-    //     await ForgotPasswordPage.requestReset(registeredUser.mobileNumber);
-
-    //     await OtpPage.waitForScreen();
-    //     await expect(OtpPage.otpInput).toBeDisplayed();
-    // });
-
     it('@regression should show an error for an unregistered mobile number', async () => {
         await ForgotPasswordPage.requestReset(unregisteredMobileNumber);
 
@@ -54,16 +45,6 @@ describe('Forgot Password', () => {
             expect(await OtpPage.isScreenDisplayed(3000)).toBe(false);
         });
     }
-
-    // it('@regression should reject a wrong OTP', async function () {
-    //     if (!hasRegisteredUser()) this.skip();
-
-    //     await ForgotPasswordPage.requestReset(registeredUser.mobileNumber);
-    //     await OtpPage.waitForScreen();
-    //     await OtpPage.verify(invalid.wrongOtp);
-
-    //     await expect(OtpPage.errorMessage).toBeDisplayed();
-    // });
 
     it('@regression should reject mismatched new passwords', async function () {
         if (!hasRegisteredUser() || !testOtp) this.skip(); // needs a fixed staging OTP

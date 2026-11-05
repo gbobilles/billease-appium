@@ -16,36 +16,6 @@ describe('Sign Up', () => {
         await SignUpPage.open();
     });
 
-    // it('@smoke should submit a valid form and reach OTP verification', async function () {
-    //     if (!hasSignUpNumber()) this.skip(); // sends a real SMS — needs SIGNUP_TEST_MOBILE_NUMBER
-
-    //     await SignUpPage.signUp(newUser());
-
-    //     await OtpPage.waitForScreen();
-    //     await expect(OtpPage.otpInput).toBeDisplayed();
-    // });
-
-    // it('@regression should reject a wrong OTP', async function () {
-    //     if (!hasSignUpNumber()) this.skip();
-
-    //     await SignUpPage.signUp(newUser());
-    //     await OtpPage.waitForScreen();
-    //     await OtpPage.verify(invalid.wrongOtp);
-
-    //     await expect(OtpPage.errorMessage).toBeDisplayed();
-    // });
-
-    // it('@regression should complete sign up with a valid OTP', async function () {
-    //     // Creates a real account — run only against staging with a fixed OTP
-    //     if (!testOtp || !hasSignUpNumber()) this.skip();
-
-    //     await SignUpPage.signUp(newUser());
-    //     await OtpPage.waitForScreen();
-    //     await OtpPage.verify(testOtp);
-
-    //     expect(await OtpPage.isScreenDisplayed(5000)).toBe(false);
-    //     expect(await SignUpPage.isScreenDisplayed(3000)).toBe(false);
-    // });
 
     it('@regression should not allow submitting an empty form', async () => {
         if (await SignUpPage.isSignUpButtonEnabled()) {
