@@ -5,7 +5,7 @@ Appium + WebdriverIO (JavaScript) framework for the BillEase app on **Android an
 ## Project structure
 
 ```
-GB-AI/
+Billease/
 ├── config/
 │   ├── wdio.shared.conf.js     # Settings shared by both platforms (Appium service, Mocha, reporters, screenshots)
 │   ├── wdio.android.conf.js    # UiAutomator2 capabilities
@@ -34,18 +34,6 @@ GB-AI/
 └── .env.example
 ```
 
-## How it runs on both platforms
-
-Each page object defines one locator per element, with the Android and iOS values side by side:
-
-```js
-get loginButton() {
-    return $(sel({ android: '~login_submit_button', ios: '~login_submit_button' }));
-}
-```
-
-`sel()` picks the right value from the running session (`driver.isAndroid`). Specs never contain selectors or platform checks, so the same spec file runs on both platforms. When both platforms share an accessibility id you can pass a single string: `$(sel('~login_submit_button'))`.
-
 ## Prerequisites
 
 | | Android | iOS (macOS only) |
@@ -73,24 +61,6 @@ Then edit `.env`:
 - Put the build in `apps/` and set `ANDROID_APP_PATH` / `IOS_APP_PATH`, or leave them empty to launch an already-installed app.
 - Add a QA account in `TEST_MOBILE_NUMBER` / `TEST_PASSWORD`. Use a staging or dedicated test account, never a personal one.
 
-## Important: map the real locators first
-
-The locators in `src/pageobjects/` follow a naming convention (`~login_mobile_input`, `~signup_submit_button`, and so on), but they are **placeholders**. Before the first run:
-
-1. Open the app in [Appium Inspector](https://github.com/appium/appium-inspector) on each platform.
-2. For each element, copy the accessibility id (best), Android `resource-id`, or an iOS predicate.
-3. Update the getter in the page object. Helpers in `src/utils/selector.js` build the other selector types:
-
-```js
-get mobileNumberInput() {
-    return $(sel({
-        android: byResourceId('et_mobile_number'),            // ph.billease...:id/et_mobile_number
-        ios: byPredicate('type == "XCUIElementTypeTextField" AND name == "Mobile number"'),
-    }));
-}
-```
-
-If you can, ask the app developers to add shared `testID` / `accessibilityIdentifier` values. One id then works on both platforms.
 
 ## Running tests
 
@@ -106,31 +76,8 @@ If you can, ask the app developers to add shared `testID` / `accessibilityIdenti
 
 The Appium server starts automatically through `@wdio/appium-service`. Its log goes to `reports/appium.log`.
 
-## Test coverage
-
-| Feature | Scenarios |
-|---|---|
-| Login | Valid login · wrong password · unregistered number · empty fields · invalid number formats · password mask/unmask · links to Forgot Password and Sign Up |
-| Forgot Password | OTP sent to a registered number · unregistered number · empty field · invalid formats · wrong OTP · mismatched new passwords · back to Login |
-| Sign Up | Reaches OTP · wrong OTP · full sign-up with OTP · empty form · invalid number / email · weak password · mismatched passwords · terms not accepted · already-registered number · back to Login |
-
-### Tests that skip on purpose
-
-Some tests need real accounts or real SMS, so they skip until you provide the data in `.env`:
-
-- `TEST_MOBILE_NUMBER` + `TEST_PASSWORD`: valid login, wrong password, Forgot Password OTP, already-registered number.
-- `SIGNUP_TEST_MOBILE_NUMBER`: any sign-up test that reaches the OTP screen. Sign-up sends a real SMS, so this must be a number your team controls.
-- `TEST_OTP`: completing sign-up and resetting a password. These create or change real accounts, so run them only against staging with a fixed OTP.
-
 ## Reports and failures
 
 - Spec reporter output in the console.
 - Allure results in `reports/allure-results` (`npm run report`).
 - A screenshot of every failed test is saved to `reports/screenshots/` and attached to Allure.
-
-## Adding a new page
-
-1. Create `src/pageobjects/MyPage.js`, extend `BasePage`, and define `screenIdentifier`.
-2. Add locators with `sel({ android, ios })` and user-level actions (`fillForm`, `submit`, and so on).
-3. Export it from `src/pageobjects/index.js`.
-4. Write specs against the page's actions, never against raw selectors.
