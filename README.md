@@ -1,6 +1,6 @@
 # BillEase mobile automation
 
-Appium + WebdriverIO (JavaScript) framework for the BillEase app on **Android and iOS**, built with the Page Object Model. It covers **Login**, **Forgot Password** and **Sign Up**.
+Appium + WebdriverIO (JavaScript) framework for the BillEase app on **Android and iOS**.
 
 ## Project structure
 
@@ -12,19 +12,7 @@ Billease/
 │   └── wdio.ios.conf.js        # XCUITest capabilities
 ├── src/
 │   ├── pageobjects/
-│   │   ├── BasePage.js         # Shared actions: tap, type, waits, keyboard, back, scroll
-│   │   ├── WelcomePage.js      # Logged-out landing screen
-│   │   ├── LoginPage.js
-│   │   ├── ForgotPasswordPage.js
-│   │   ├── OtpPage.js          # Shared by Sign Up and Forgot Password
-│   │   ├── ResetPasswordPage.js
-│   │   ├── SignUpPage.js
-│   │   ├── HomePage.js         # Post-login dashboard
-│   │   └── index.js
 │   ├── utils/
-│   │   ├── selector.js         # sel({ android, ios }) + selector builders
-│   │   ├── gestures.js         # Swipe / scroll with W3C actions
-│   │   └── app.js              # Restart / reset the app between tests
 │   └── data/testData.js        # Test data; credentials come from .env
 ├── test/specs/
 │   ├── login.spec.js
