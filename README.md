@@ -69,3 +69,6 @@ The Appium server starts automatically through `@wdio/appium-service`. Its log g
 - Spec reporter output in the console.
 - Allure results in `reports/allure-results` (`npm run report`).
 - A screenshot of every failed test is saved to `reports/screenshots/` and attached to Allure.
+
+## iOS cannot validate all test in iOS since it needs xCode to run it on emulator, appium required Xcode because it cannot communicate with iOS devices directly; instead, it relies entirely on Apple's native testing infrastructure, frameworks, and command-line utilities bundled within Xcode
+
