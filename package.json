@@ -1,0 +1,36 @@
+{
+  "name": "billease-mobile-automation",
+  "version": "1.0.0",
+  "description": "Appium + WebdriverIO (JavaScript) Page Object Model framework for the BillEase mobile app on Android and iOS",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "test:android": "wdio run config/wdio.android.conf.js",
+    "test:ios": "wdio run config/wdio.ios.conf.js",
+    "test:android:smoke": "wdio run config/wdio.android.conf.js --mochaOpts.grep @smoke",
+    "test:ios:smoke": "wdio run config/wdio.ios.conf.js --mochaOpts.grep @smoke",
+    "test:android:login": "wdio run config/wdio.android.conf.js --spec test/specs/login.spec.js",
+    "test:ios:login": "wdio run config/wdio.ios.conf.js --spec test/specs/login.spec.js",
+    "test:android:forgot": "wdio run config/wdio.android.conf.js --spec test/specs/forgotPassword.spec.js",
+    "test:ios:forgot": "wdio run config/wdio.ios.conf.js --spec test/specs/forgotPassword.spec.js",
+    "test:android:signup": "wdio run config/wdio.android.conf.js --spec test/specs/signUp.spec.js",
+    "test:ios:signup": "wdio run config/wdio.ios.conf.js --spec test/specs/signUp.spec.js",
+    "drivers:install": "appium driver install uiautomator2 && appium driver install xcuitest",
+    "report": "allure generate reports/allure-results --clean -o reports/allure-report && allure open reports/allure-report",
+    "clean": "rimraf reports"
+  },
+  "devDependencies": {
+    "@wdio/allure-reporter": "^9.0.0",
+    "@wdio/appium-service": "^9.0.0",
+    "@wdio/cli": "^9.0.0",
+    "@wdio/globals": "^9.0.0",
+    "@wdio/local-runner": "^9.0.0",
+    "@wdio/mocha-framework": "^9.0.0",
+    "@wdio/spec-reporter": "^9.0.0",
+    "allure-commandline": "^2.30.0",
+    "appium": "^2.19.0",
+    "appium-uiautomator2-driver": "^4.2.9",
+    "dotenv": "^16.4.5",
+    "rimraf": "^6.0.1"
+  }
+}
