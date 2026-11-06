@@ -1,0 +1,11 @@
+Bug: No friedly message when the device has No internet connection
+Steps:
+
+1. Launch BillEase app
+2. Stap through onboarding (Next > Let's Go)
+3. Tap Login
+4. Enter mobile number
+5. Tap Login button
+
+actual: No friedly message when the device has No internet connection
+expected: Friendly 'No internet connection' message with retry; no crash
